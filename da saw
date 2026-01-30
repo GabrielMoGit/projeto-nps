@@ -1,0 +1,23 @@
+[33mcommit 7745abcee1c1a35d517df86fc34fa69f836b5c72[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mcriandoAsRotasIniciais[m[33m)[m
+Author: GabrielMoGit <Gabriel.moreira97@outlook.pt>
+Date:   Thu Jan 29 01:00:58 2026 -0300
+
+    Criada as rotas teste de GET e POST iniciais
+
+[33mcommit 002611f12d686265028f34b8b7dee4d378450138[m[33m ([m[1;32mcriandoServidorNode[m[33m)[m
+Author: GabrielMoGit <Gabriel.moreira97@outlook.pt>
+Date:   Thu Jan 29 00:41:10 2026 -0300
+
+    Alterado os arquivos para funcionamento do servidor, servidor já funcionando
+
+[33mcommit 8fb1bc62c2961edc4896ab7b615006a01e1c3199[m
+Author: GabrielMoGit <Gabriel.moreira97@outlook.pt>
+Date:   Wed Jan 28 22:37:32 2026 -0300
+
+    Adicionando o Express no projeto
+
+[33mcommit 46f4fb11c8f01e7befe9c7dfd91b27ba82bced06[m[33m ([m[1;32mmaster[m[33m)[m
+Author: GabrielMoGit <Gabriel.moreira97@outlook.pt>
+Date:   Wed Jan 28 22:29:35 2026 -0300
+
+    commit inicial
