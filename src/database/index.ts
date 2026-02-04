@@ -1,5 +1,9 @@
-import { createConnection } from "typeorm";
+import { AppDataSource } from "./dataSource";
 
-createConnection();
-
-
+AppDataSource.initialize()
+  .then(() => {
+    console.log("Banco conectado com sucesso");
+  })
+  .catch((err) => {
+    console.error("Erro ao conectar no banco", err);
+  });
