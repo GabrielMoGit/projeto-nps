@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table } from "typeorm";
+import { Column, MigrationInterface, QueryRunner, Table } from "typeorm";
 
 export class CreateUsers1770181854362 implements MigrationInterface {
 //CRIANDO A TABELA DE USUARIO DO BANCO DE DADOS URANDO ORM "TYPEORM"
