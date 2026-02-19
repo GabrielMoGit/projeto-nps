@@ -1,17 +1,23 @@
 import { Repository } from "typeorm";
-import {User} from "../models/User";
+import { User } from "../models/User";
 import { AppDataSource } from "../database/dataSource";
 
-class userRepository{
+class UsersRepository{
 
     private repository: Repository<User>
 
     constructor(){
         this.repository = AppDataSource.getRepository(User)
     }
-
-
     
+    async findByEmail(email: string){
+        return this.repository.findOneBy({email});
+    }
+
+    async createAndSave(name: string, email: string){
+        const user = this.repository.create({name, email});
+        return this.repository.save(user)
+    }
 }
 
-export {userRepository};
+export {UsersRepository};
