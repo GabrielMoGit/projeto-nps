@@ -3,10 +3,6 @@ import { AppDataSource } from "../database/dataSource"; //INSTANCIA DE CONEXAO C
 import { User } from "../models/User"; //ENTIDADE USER QUE REPRESENTA A TABELA USER DO BANCO
 import { UsersRepository } from "../repositories/UsersRepository";
 
-interface UserInformation{
-    name: string;
-    email: string;
-}
 
 class UsersController{ //DEFINIÇÃO DA CLASSE
     async create(request: Request, response: Response){ //MÉTODO QUE SERÁ CHAMADO QUANDO FIZER REQUISIÇÃO DE CRIAR USUARIO
