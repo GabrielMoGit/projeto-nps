@@ -19,8 +19,9 @@ class UsersController{ //DEFINIÇÃO DA CLASSE
         
         const user = await userRepository.createAndSave(name, email); //CRIA E SALVA O OBJETO USER COM OS DADOS RECEBIDOS
 
-        return response.json(user);
+        return response.status(201).json(user);
     }
 }
 
 export { UsersController };
+    
