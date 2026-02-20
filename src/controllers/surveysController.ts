@@ -13,6 +13,12 @@ class SurveysController{
         return response.status(201).json(survey);
 
     }
+
+    async show(request: Request, response: Response){
+        const surveysRepository = new SurveysRepository();
+        const allSurveys = await surveysRepository.listAllSurveys();
+        return response.json(allSurveys);
+    }
 }
 
 export {SurveysController};
