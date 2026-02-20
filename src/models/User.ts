@@ -4,7 +4,8 @@ import {v4 as uuid} from 'UUID'
 
 @Entity("users") //NOME DA TABELA "users"
 
-class User{ //ATRIBUTOS DA TABELA
+class User{ 
+    //ATRIBUTOS DA TABELA
 
     @PrimaryColumn()
     readonly id: string; //READONLY FAZ COM QUE NÃO POSS SER ALTERADO
