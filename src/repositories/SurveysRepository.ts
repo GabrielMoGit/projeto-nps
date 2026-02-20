@@ -19,6 +19,10 @@ class SurveysRepository{
         return this.repository.save(survey);
     }
 
+    async listAllSurveys(){
+        return this.repository.find();
+    }
+
 }
 
 export {SurveysRepository};
