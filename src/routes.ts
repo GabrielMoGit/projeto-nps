@@ -1,7 +1,6 @@
-import {Router} from 'express';
-import { UsersController } from "./controllers/usersController"
-import { SurveysRepository } from './repositories/SurveysRepository';
+import { Router } from 'express';
 import { SurveysController } from './controllers/surveysController';
+import { UsersController } from "./controllers/usersController";
 
 const router = Router();
 
@@ -11,4 +10,4 @@ const surveysController = new SurveysController();
 router.post("/users", usersController.create);
 router.post("/surveys", surveysController.create);
 
-export {router};
+export { router };
