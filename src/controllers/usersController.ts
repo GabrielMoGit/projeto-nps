@@ -1,6 +1,4 @@
 import { Request, Response } from "express";
-import { AppDataSource } from "../database/dataSource"; //INSTANCIA DE CONEXAO COM O BANCO DE DADOS
-import { User } from "../models/User"; //ENTIDADE USER QUE REPRESENTA A TABELA USER DO BANCO
 import { UsersRepository } from "../repositories/UsersRepository";
 
 
@@ -12,7 +10,7 @@ class UsersController{ //DEFINIÇÃO DA CLASSE
 
         const userAlreadyExists = await userRepository.findByEmail(email); //SELECT * FROM USERS WHERE EMAIL = "EMAIL"
 
-
+        
         if(userAlreadyExists){ //SE O USUARIO JÁ EXISTIR...
             return response.status(400).json({
                 error: "Usuário já existe", 
@@ -25,4 +23,4 @@ class UsersController{ //DEFINIÇÃO DA CLASSE
     }
 }
 
-export{UsersController};
+export { UsersController };
