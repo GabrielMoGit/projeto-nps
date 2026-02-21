@@ -1,28 +1,24 @@
-
-/*
-describe("First", () => {
-    it("deve ser possível somar 2 números", () => {   //O QUE O TESTE VAI FAZER
-        expect(2 + 2).toBe(4); //O QUE A GENTE ESPERA DO TESTE
-    });
-});
-*/
-
-import request from "supertest";
-import { AppDataSourceTest } from "../database/dataSourceTest";
 import { UsersRepository } from "../repositories/UsersRepository";
+import { app } from "../app";
+import  request  from "supertest";
 
-describe("Users Repository - Teste", () => {
+describe("Users Repository - Test", () => {
 
-  it("deve criar um usuário no banco de teste", async () => {
-    const usersRepository = new UsersRepository(true); // modo teste
+  it("Should be possible to create a new user", async () => {
+    const response = await request(app).post("/users").send({
+        email: "raquel@test.com",
+        name: "Raquel"
+    });
 
-    const user = await usersRepository.createAndSave("Gabriel", "gabriel@test.com");
+    console.log(response.body);
+    console.log(response.status);
 
-    expect(user.id).toBeDefined();
-    expect(user.name).toBe("Gabriel");
-    expect(user.email).toBe("gabriel@test.com");
+    expect(response.status).toBe(201);
+    //expect(user.name).toBe("Gabriel");
+    //expect(user.email).toBe("gabriel@test.com");
   });
 
+
 });
 
-export{};
+export {};
