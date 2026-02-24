@@ -4,18 +4,29 @@ import  request  from "supertest";
 
 describe("Users Repository - Test", () => {
 
-  it("Should be possible to create a new user", async () => {
+  it("Should be able to create a new user", async () => {
     const response = await request(app).post("/users").send({
-        email: "raquel@test.com",
-        name: "Raquel"
+      email: "raquel@test.com",
+      name: "Raquel"
     });
 
-    console.log(response.body);
-    console.log(response.status);
-
     expect(response.status).toBe(201);
-    //expect(user.name).toBe("Gabriel");
-    //expect(user.email).toBe("gabriel@test.com");
+  });
+
+  it("Should not be able to create a new user with exists email", async() =>{
+    const response1 = await request(app).post("/users").send({
+      email: "raquel@test.com",
+      name: "Raquel"
+    });
+
+    const response2 = await request(app).post("/users").send({
+      email: "raquel@test.com",
+      name: "Raquel"
+    });
+
+
+    expect(response2.status).toBe(400);
+
   });
 
 
