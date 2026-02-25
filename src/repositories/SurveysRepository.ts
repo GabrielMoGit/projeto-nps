@@ -1,13 +1,13 @@
 import { Repository } from "typeorm";
 import { Survey } from "../models/Surveys"
-import { AppDataSource } from "../database/dataSource";
+import { dataSource } from "../database";
 
 class SurveysRepository{
     
     private repository: Repository<Survey>
 
     constructor(){
-        this.repository = AppDataSource.getRepository(Survey);
+        this.repository = dataSource.getRepository(Survey);
     }
 
     async findByDescription(description: string){
