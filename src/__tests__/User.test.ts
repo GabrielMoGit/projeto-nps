@@ -1,6 +1,5 @@
-import { UsersRepository } from "../repositories/UsersRepository";
+import request from "supertest";
 import { app } from "../app";
-import  request  from "supertest";
 
 describe("Users Repository - Test", () => {
 
@@ -28,8 +27,9 @@ describe("Users Repository - Test", () => {
     expect(response2.status).toBe(400);
 
   });
-
+ 
 
 });
 
-export {};
+export { };
+
