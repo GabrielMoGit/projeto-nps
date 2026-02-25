@@ -18,7 +18,7 @@ describe("Surveys Repository - Test", () => {
         await request(app).post("/surveys").send({
             title: "League of Legends opinião",
             description: "O que está achando da nova season do lol?"
-        });
+        }); 
 
         const response = await request(app).get("/surveys");
 
