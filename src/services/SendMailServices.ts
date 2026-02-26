@@ -1,5 +1,7 @@
-import {Request, Response} from "express";
+import {resolve} from "path";
 import nodeMailer, {Transporter} from "nodemailer";
+import handlebars from "handlebars";
+import fs from "fs";
 
 class SendMailService{
     private client: Transporter;
@@ -22,11 +24,21 @@ class SendMailService{
 
 
     async execute(to: string, subject: string, body: string){
+        const npsPath = resolve(__dirname, "..", "views", "email", "npsMail.hbs") //BIBLIOTECA DE PATH PARA PEGAR O CAMINHO DA PASTA DE VIEW
+        const templateFileContent = fs.readFileSync(npsPath).toString("utf8");
+
+        const mailTemplateParse = handlebars.compile(templateFileContent);
+
+        const html = mailTemplateParse({
+            name: to,
+            title: subject,
+            description: body
+        })
 
         const message = await this.client.sendMail({
             to, 
             subject,
-            html: body,
+            html,
             from: "NPS <noreplay@nps.com.br>"
         })
 
