@@ -1,12 +1,12 @@
 import { Column, MigrationInterface, QueryRunner, Table } from "typeorm";
 import { Timestamp } from "typeorm/browser";
 
-export class ServerysUsers1772060893796 implements MigrationInterface {
+export class SurverysUsers1772060893796 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name:"ServeysUsers",
+                name:"SurveysUsers",
                 columns:[
                     {
                         name: "id",
