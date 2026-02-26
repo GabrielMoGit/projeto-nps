@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn, Entity, PrimaryColumn } from "typeorm";
-import {v4 as uuid} from "uuid";
+import { v4 } from "uuid";
 
 
 @Entity("users") //NOME DA TABELA "users"
@@ -21,7 +21,7 @@ class User{
 
     constructor(){
         if(!this.id){ //VERIFICA SE O USUARIO NÃO POSSÚI UM ID
-            this.id = uuid() //CASO NÃO POSSUA ELE GERA UM ID PARA O USUÁRIO
+            this.id = v4() //CASO NÃO POSSUA ELE GERA UM ID PARA O USUÁRIO
         }
     }
 }
