@@ -1,21 +1,22 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ForeignKey, PrimaryColumn } from "typeorm";
 import { v4 } from "uuid";
 
+@Entity("SurveysUsers")
 
-@Entity("users") //NOME DA TABELA "users"
-
-class User{ 
-    //ATRIBUTOS DA TABELA
-
+class SurveysUsers{
+    
     @PrimaryColumn()
-    readonly id: string; //READONLY FAZ COM QUE NÃO POSS SER ALTERADO
-    
+    readonly id: string;
+
     @Column()
-    name: string;
-    
+    user_id: string;
+
     @Column()
-    email: string;
-    
+    survey_id: string;
+
+    @Column()
+    value: number;
+
     @CreateDateColumn() //CRIA AUTOMATICAMENTE A DATA, NO MOMENTO DA CRIAÇÃO DO REGISTRO
     created_at: Date;
 
@@ -24,6 +25,7 @@ class User{
             this.id = v4() //CASO NÃO POSSUA ELE GERA UM ID PARA O USUÁRIO
         }
     }
+
 }
 
-export {User};
+export {SurveysUsers};

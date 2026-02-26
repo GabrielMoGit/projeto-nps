@@ -1,13 +1,14 @@
 import { Repository } from "typeorm";
 import { User } from "../models/User";
-import { AppDataSource } from "../database/dataSource";
+import { dataSource } from "../database";
 
+//ORIGINAL
 class UsersRepository{
 
     private repository: Repository<User>
 
     constructor(){
-        this.repository = AppDataSource.getRepository(User)
+        this.repository = dataSource.getRepository(User)
     }
     
     async findByEmail(email: string){
