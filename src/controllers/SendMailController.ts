@@ -27,6 +27,15 @@ class SendMailController {
             });
         }
 
+        const userId = await userRepository.findByEmail(email);
+
+        if (!userId) {
+        throw new Error("User not found");
+        }
+        
+        const surveyUser = await surveysUsersRepository.createAndSave(userId.id, survey_id);
+        return response.json(surveyUser);
+        
     }
 
 }
