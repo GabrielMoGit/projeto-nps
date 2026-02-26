@@ -1,5 +1,5 @@
 import { Repository } from "typeorm";
-import { Survey } from "../models/Surveys"
+import { Survey } from "../models/Surveys"  
 import { dataSource } from "../database";
 
 class SurveysRepository{
@@ -12,6 +12,10 @@ class SurveysRepository{
 
     async findByDescription(description: string){
         return this.repository.findOneBy({description});
+    }
+
+    async findById(id: string){
+        return this.repository.findOneBy({id});
     }
 
     async createAndSave(title: string, description: string){
