@@ -3,6 +3,7 @@ import { UsersRepository } from "../repositories/UsersRepository";
 import { SurveysRepository } from "../repositories/SurveysRepository";
 import { SurveysUsersRepository } from "../repositories/SurveysUsersRepository";
 import SendMailServices from "../services/SendMailServices";
+import {resolve} from "path";
 
 class SendMailController {
 
@@ -14,8 +15,8 @@ class SendMailController {
         const surveyRepository = new SurveysRepository();
         const surveysUsersRepository = new SurveysUsersRepository();
 
-        const userAlreadyExist = await userRepository.findByEmail(email);
-        if(!userAlreadyExist){
+        const user = await userRepository.findByEmail(email);
+        if(!user){
             return response.status(400).json({
                 error: "User doesn't exist!",
             });
@@ -28,15 +29,23 @@ class SendMailController {
             });
         }
 
-        const userId = await userRepository.findByEmail(email);
 
-        if (!userId) {
+        if (!user.id) {
         throw new Error("User not found");
         }
         
-        const surveyUser = await surveysUsersRepository.createAndSave(userId.id, survey_id);
+        const surveyUser = await surveysUsersRepository.createAndSave(user.id, survey_id);
 
-        await SendMailServices.execute(email, survey.title, survey.description)
+        
+        const npsPath = resolve(__dirname, "..", "views", "email", "npsMail.hbs") //BIBLIOTECA DE PATH PARA PEGAR O CAMINHO DA PASTA DE VIEW
+
+        const variables = {
+            name: user.name,
+            title: survey.title,
+            description: survey.description
+        }
+
+        await SendMailServices.execute(email, survey.title, variables, npsPath)
 
         return response.json(surveyUser);
         
