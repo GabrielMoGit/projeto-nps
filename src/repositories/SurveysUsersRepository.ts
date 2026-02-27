@@ -14,6 +14,12 @@ class SurveysUsersRepository{
         return this.repository.save(surveyUser);
     }
     
+    async surveyUserAlreadyExist(user_id: string){
+        const user = this.repository.findOneBy({user_id});
+        return(user);
+    }
+    
+    
 
 }
 
