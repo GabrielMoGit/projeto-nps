@@ -9,12 +9,12 @@ class SendMailController {
 
     async execute(request: Request, response: Response){
 
-        const {email, survey_id} = request.body;
-       
         const userRepository = new UsersRepository();
         const surveyRepository = new SurveysRepository();
         const surveysUsersRepository = new SurveysUsersRepository();
 
+        const {email, survey_id} = request.body;
+       
         const user = await userRepository.findByEmail(email);
         if(!user){
             return response.status(400).json({
@@ -29,14 +29,10 @@ class SendMailController {
             });
         }
 
-
         if (!user.id) {
         throw new Error("User not found");
         }
-        
-        const surveyUser = await surveysUsersRepository.createAndSave(user.id, survey_id);
 
-        
         const npsPath = resolve(__dirname, "..", "views", "email", "npsMail.hbs") //BIBLIOTECA DE PATH PARA PEGAR O CAMINHO DA PASTA DE VIEW
 
         const variables = {
@@ -47,8 +43,16 @@ class SendMailController {
             link: process.env.URL_MAIL
         }
 
-        await SendMailServices.execute(email, survey.title, variables, npsPath)
+        const surveyUserAlreadyExist = await surveysUsersRepository.surveyUserAlreadyExist(user.id);
+        
+        if(surveyUserAlreadyExist?.value == null){
+            await SendMailServices.execute(user.email, survey.title, variables, npsPath)
+            return response.json(surveyUserAlreadyExist);
+        }
+        
+        const surveyUser = await surveysUsersRepository.createAndSave(user.id, survey_id);
 
+        await SendMailServices.execute(email, survey.title, variables, npsPath)
         return response.json(surveyUser);
         
     }
