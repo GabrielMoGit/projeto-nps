@@ -2,38 +2,57 @@ import { Request, Response } from "express";
 import { UsersRepository } from "../repositories/UsersRepository";
 import { SurveysRepository } from "../repositories/SurveysRepository";
 import { SurveysUsersRepository } from "../repositories/SurveysUsersRepository";
+import SendMailServices from "../services/SendMailServices";
+import {resolve} from "path";
 
 class SendMailController {
 
     async execute(request: Request, response: Response){
 
-        const {email, survey_id} = request.body;
-       
         const userRepository = new UsersRepository();
         const surveyRepository = new SurveysRepository();
         const surveysUsersRepository = new SurveysUsersRepository();
 
-        const userAlreadyExist = await userRepository.findByEmail(email);
-        if(!userAlreadyExist){
+        const {email, survey_id} = request.body;
+       
+        const user = await userRepository.findByEmail(email);
+        if(!user){
             return response.status(400).json({
                 error: "User doesn't exist!",
             });
         }
 
-        const surveyAlreadyExist = await surveyRepository.findById(survey_id);
-        if(!surveyAlreadyExist){
+        const survey = await surveyRepository.findById(survey_id);
+        if(!survey){
             return response.status(400).json({
                 error: "Survey doesn't exist!",
             });
         }
 
-        const userId = await userRepository.findByEmail(email);
-
-        if (!userId) {
+        if (!user.id) {
         throw new Error("User not found");
         }
+
+        const npsPath = resolve(__dirname, "..", "views", "email", "npsMail.hbs") //BIBLIOTECA DE PATH PARA PEGAR O CAMINHO DA PASTA DE VIEW
+
+        const variables = {
+            name: user.name,
+            title: survey.title,
+            description: survey.description,
+            user_id: user.id,
+            link: process.env.URL_MAIL
+        }
+
+        const surveyUserAlreadyExist = await surveysUsersRepository.surveyUserAlreadyExist(user.id);
         
-        const surveyUser = await surveysUsersRepository.createAndSave(userId.id, survey_id);
+        if(surveyUserAlreadyExist?.value == null){
+            await SendMailServices.execute(user.email, survey.title, variables, npsPath)
+            return response.json(surveyUserAlreadyExist);
+        }
+        
+        const surveyUser = await surveysUsersRepository.createAndSave(user.id, survey_id);
+
+        await SendMailServices.execute(email, survey.title, variables, npsPath)
         return response.json(surveyUser);
         
     }
